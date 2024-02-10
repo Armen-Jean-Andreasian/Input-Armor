@@ -1,0 +1,30 @@
+directory_structure.txt
+main.py
+scan.py
+sql_checks.py
+__init__.py
+checks/
+    encoding.py
+    length.py
+    logical_expression.py
+    punctuation_symbols.py
+    undefined_value.py
+    __init__.py
+sources/
+    sql_full.py
+    sql_soft.py
+    symbols.py
+specific_checks/
+    anti_injection_checker.py
+    __init__.py
+    detection_data/
+        dom_manipulation_data.py
+        sql_injection_data.py
+        __init__.py
+tests/
+    bad_length.py
+    forbidden_symbols.py
+    functional_testing.py
+    logical_expression.py
+    sql_test.py
+    undefined_value.py
