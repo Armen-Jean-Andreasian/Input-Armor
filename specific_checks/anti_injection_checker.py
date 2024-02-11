@@ -1,12 +1,12 @@
 from typing import Iterable, LiteralString
-from typing import TYPE_CHECKING, Type
+from typing import TYPE_CHECKING, Type, Union
 
 if TYPE_CHECKING:
     from .detection_data import SqlList, JavaScriptHtmlList
 
 
 def anti_injection_check(rabbit: LiteralString,
-                         language_data: Type[SqlList | JavaScriptHtmlList],
+                         language_data: Union[Type['SqlList'], Type['JavaScriptHtmlList']],
                          check_level: int,
                          white_list: Iterable = None,
                          black_list: Iterable = None):

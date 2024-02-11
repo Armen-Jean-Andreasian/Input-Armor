@@ -1,18 +1,27 @@
 import unittest
-from ..main import InputArmor
+from main import InputArmor
 
 
 class TestInputArmor(unittest.TestCase):
-    def test_advanced_check(self):
-        # Test case for advanced_check method
-        # Test with valid string, all checks pass
-        self.assertIsNone(InputArmor.advanced_check("valid_string", check_encoding=True, check_length=True, fixed_length=10))
+    valid_string = "valid_string"
 
-        # Test with invalid string type
+    def test_advanced_check_valid(self):
+        # valid
+        self.assertIsNone(InputArmor.advanced_check(rabbit=self.valid_string))
+        self.assertIsNone(InputArmor.advanced_check(rabbit=self.valid_string + "123"))
+        self.assertIsNone(InputArmor.advanced_check(rabbit="B" + self.valid_string + "123"))
+
+    def test_advanced_check_non_string(self):
+        # non string input
         with self.assertRaises(TypeError):
-            InputArmor.advanced_check(123)
+            InputArmor.advanced_check(set(self.valid_string))
+            InputArmor.advanced_check(TypeError)
+            InputArmor.advanced_check(set(self.valid_string))
 
-        # Add more test cases for other scenarios
+    def test_advanced_check_wrong_encoding(self):
+        # non utf-8 input
+        with self.assertRaises(AssertionError):
+            InputArmor.advanced_check("й, ў, ї")
 
     def test_sql_injection_check(self):
         # Test case for sql_injection_check method
@@ -27,6 +36,7 @@ class TestInputArmor(unittest.TestCase):
         self.assertIsNone(InputArmor.html_injection_check("valid_html_string", check_level=1))
 
         # Add more test cases for other scenarios
+
 
 if __name__ == '__main__':
     unittest.main()
