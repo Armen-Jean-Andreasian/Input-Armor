@@ -6,3 +6,6 @@ def punctuation_symbols_check(rabbit: str) -> None:
     assert rabbit.isalnum() and (x not in string.punctuation for x in rabbit), \
         f"The string {rabbit} failed the {punctuation_symbols_check.__name__}"
     return None
+
+if __name__ == '__main__':
+    punctuation_symbols_check(rabbit='store')

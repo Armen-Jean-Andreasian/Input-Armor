@@ -22,6 +22,11 @@ def encoding_check(rabbit: str) -> None:
             f"The string {rabbit} failed the {encoding_check.__name__}",
             f"\n{error}"
         )
-    except Exception :
-        raise Exception
     return None
+
+
+if __name__ == '__main__':
+    try:
+        encoding_check(rabbit="й, ў, ї")
+    except AssertionError:
+        print(1)

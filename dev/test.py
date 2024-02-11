@@ -16,10 +16,14 @@
 # assert type(rabbit + "normal_string") is str
 
 
+#
+# from checks import encoding_check
+# import codecs
+# rabbit = "й, ў, ї"
+#
+# # assert type(codecs.encode(rabbit, 'latin1', errors='strict')) is bytes, f"The string {rabbit} failed the "
+# encoding_check(rabbit=rabbit)
 
-from checks import encoding_check
-import codecs
-rabbit = "й, ў, ї"
+from lib import InputArmor
 
-# assert type(codecs.encode(rabbit, 'latin1', errors='strict')) is bytes, f"The string {rabbit} failed the "
-encoding_check(rabbit=rabbit)
+InputArmor.advanced_check(rabbit="й, ў, ї")

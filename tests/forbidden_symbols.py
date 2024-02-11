@@ -1,4 +1,4 @@
-from checks.punctuation_symbols import punctuation_symbols_check
+from lib.checks.punctuation_symbols import punctuation_symbols_check
 import unittest
 
 

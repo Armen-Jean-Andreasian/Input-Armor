@@ -2,3 +2,5 @@
 .git
 __pycache__
 venv
+tests/.pytest_cache
+

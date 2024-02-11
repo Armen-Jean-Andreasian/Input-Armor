@@ -1,25 +1,26 @@
 from typing import Iterable, LiteralString
 
-from checks import encoding_check
-from checks import length_check
-from checks import logical_expression_check
-from checks import punctuation_symbols_check
-from checks import presence_check
+from lib.checks import encoding_check
+from lib.checks import length_check
+from lib.checks import logical_expression_check
+from lib.checks import punctuation_symbols_check
+from lib.checks import presence_check
+from lib.checks import keyword_check
 
-from specific_checks.detection_data import SqlList
-from specific_checks.detection_data import JavaScriptHtmlList
-
-from specific_checks import anti_injection_check
+from .specific_checks import anti_injection_check
+from .specific_checks.detection_data import SqlList
+from .specific_checks.detection_data import JavaScriptHtmlList
 
 
 class InputArmor:
     @staticmethod
     def advanced_check(
             rabbit: LiteralString,
-            check_encoding: bool = False,
-            check_length: bool = False, fixed_length: int = 10,
-            check_for_logical_expressions: bool = False,
-            check_for_punctuation_symbols: bool = False,
+            check_encoding: bool = True,
+            check_length: bool = True, max_length: int = 10,
+            check_for_logical_expressions: bool = True,
+            check_for_keywords: bool = False,
+            check_for_punctuation_symbols: bool = True,
             check_for_undefined_value: bool = False, possible_values: Iterable = None) -> None:
         """
         Provides advanced string check-ups.
@@ -28,7 +29,8 @@ class InputArmor:
         :param rabbit: The string that needs to be checked.
         :param check_encoding: If the encoding of `rabbit` is utf-8.
         :param check_length: If the length of `rabbit` (stripped) is less than `fixed_length` param, and more than zero.
-        :param fixed_length: By default, it's 10 (Chars. Spaces excluded).
+        :param max_length: By default, it's 10 (Chars. Spaces excluded).
+        :param check_for_keywords:
         :param check_for_logical_expressions:
         :param check_for_punctuation_symbols:
         :param check_for_undefined_value: Checks if `rabbit` is present in `possible_values` param.
@@ -37,24 +39,28 @@ class InputArmor:
 
         if type(rabbit) is not str:
             raise TypeError(f"Non-string value was found in {rabbit}")
-        else:
-            if check_encoding:
-                assert encoding_check(rabbit) is None
 
-            if check_length:
-                assert length_check(rabbit, fixed_length) is None
+        if check_encoding:
+            assert encoding_check(rabbit=rabbit) is None
+            print('checked encoding')
 
-            if check_for_logical_expressions:
-                assert logical_expression_check(rabbit) is None
+        if check_length:
+            assert length_check(rabbit, max_length) is None
 
-            if check_for_punctuation_symbols:
-                assert punctuation_symbols_check(rabbit)
+        if check_for_logical_expressions:
+            assert logical_expression_check(rabbit) is None
 
-            if check_for_undefined_value:
-                if possible_values is None:
-                    raise TypeError(f"Iterable expected for possible_values. Found None.")
-                else:
-                    assert presence_check(rabbit, possible_values) is None
+        if check_for_keywords:
+            assert keyword_check(rabbit) is None
+
+        if check_for_punctuation_symbols:
+            assert punctuation_symbols_check(rabbit) is None
+
+        if check_for_undefined_value:
+            if possible_values is None:
+                raise TypeError(f"Iterable expected for possible_values. Found None.")
+            else:
+                assert presence_check(rabbit, possible_values) is None
 
         return None
 
