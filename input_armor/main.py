@@ -1,11 +1,11 @@
 from typing import Iterable, LiteralString
 
-from lib.checks import encoding_check
-from lib.checks import length_check
-from lib.checks import logical_expression_check
-from lib.checks import punctuation_symbols_check
-from lib.checks import presence_check
-from lib.checks import keyword_check
+from .checks import encoding_check
+from .checks import length_check
+from .checks import logical_expression_check
+from .checks import punctuation_symbols_check
+from .checks import presence_check
+from .checks import keyword_check
 
 from .specific_checks import anti_injection_check
 from .specific_checks.detection_data import SqlList
@@ -17,10 +17,10 @@ class InputArmor:
     def advanced_check(
             rabbit: LiteralString,
             check_encoding: bool = True,
-            check_length: bool = True, max_length: int = 10,
+            check_length: bool = False, max_length: int = 10,
             check_for_logical_expressions: bool = True,
             check_for_keywords: bool = False,
-            check_for_punctuation_symbols: bool = True,
+            check_for_punctuation_symbols: bool = False,
             check_for_undefined_value: bool = False, possible_values: Iterable = None) -> None:
         """
         Provides advanced string check-ups.
@@ -42,7 +42,6 @@ class InputArmor:
 
         if check_encoding:
             assert encoding_check(rabbit=rabbit) is None
-            print('checked encoding')
 
         if check_length:
             assert length_check(rabbit, max_length) is None
@@ -92,14 +91,14 @@ class InputArmor:
                              white_list: Iterable = None,
                              black_list: Iterable = None):
         """
-        Checks for Dom-Manipulation-specific keywords and expressions.
+        Checks for DOM-Manipulation-specific keywords and expressions.
         Recommended to run after `advanced_check`.
 
         :param rabbit: The string that needs to be checked.
         :param check_level: Identifies the level of check.
             Possible values: 1 and 2. Where:
             1: soft check: Checks against a basic small list of 44 items.
-            2: hard check: Checks against a large list of 127 items.
+            2: deep check: Checks against a large list of 127 items.
         :param white_list: An iterable with values that are allowed to have.
         :param black_list: An iterable with custom values that are not allowed to have.
         """

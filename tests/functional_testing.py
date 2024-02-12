@@ -1,5 +1,5 @@
 import unittest
-from lib.main import InputArmor
+from input_armor import InputArmor
 
 
 class TestInputArmor(unittest.TestCase):
@@ -54,8 +54,8 @@ class TestInputArmor(unittest.TestCase):
         # punctuation symbols check
 
         with self.assertRaises(AssertionError):
-            InputArmor.advanced_check(rabbit="-- ls")
-            InputArmor.advanced_check(rabbit="#!")
+            InputArmor.advanced_check(rabbit="-- ls", check_for_punctuation_symbols=True)
+            InputArmor.advanced_check(rabbit="#!", check_for_punctuation_symbols=True)
 
     def test_for_possible_values_without_iterable(self):
         # failed item persistence check without iterable given
@@ -83,12 +83,23 @@ class TestInputArmor(unittest.TestCase):
             InputArmor.sql_injection_check(rabbit="execute", check_level=1)
             InputArmor.sql_injection_check(rabbit="delete user", check_level=1)
 
-    def test_html_injection_hard_check(self):
+    def test_sql_injection_hard_check(self):
         # Test case for sql_injection_check method in soft check mode
         self.assertIsNone(InputArmor.sql_injection_check("valid_sql_string", check_level=2))
 
         with self.assertRaises(AssertionError):
             self.assertIsNone(InputArmor.sql_injection_check("update string", check_level=2))
+
+    def test_html_injection_soft_check(self):
+
+        with self.assertRaises(AssertionError):
+            InputArmor.html_injection_check(rabbit="getElementById", check_level=1)
+            InputArmor.html_injection_check(rabbit="innerHTML", check_level=1)
+
+    def test_html_injection_hard_check(self):
+
+        with self.assertRaises(AssertionError):
+            self.assertIsNone(InputArmor.html_injection_check("localStorage", check_level=2))
 
 
 if __name__ == '__main__':

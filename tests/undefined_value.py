@@ -1,4 +1,4 @@
-from lib.checks import presence_check
+from lib import presence_check
 import unittest
 
 

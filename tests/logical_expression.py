@@ -1,4 +1,4 @@
-from lib.checks.logical_expression import logical_expression_check
+from input_armor.checks import logical_expression_check
 import unittest
 
 

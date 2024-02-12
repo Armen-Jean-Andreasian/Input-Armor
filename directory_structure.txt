@@ -1,10 +1,7 @@
 directory_structure.txt
-scan.py
-sql_checks.py
-dev/
-    test.py
-    __init__.py
-lib/
+demo.py
+
+input_armor/
     main.py
     __init__.py
     checks/

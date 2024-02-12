@@ -17,7 +17,6 @@ def encoding_check(rabbit: str) -> None:
         assert type(rabbit + "normal_string") is str
 
     except UnicodeEncodeError as error:
-        print('unicode error')
         raise AssertionError(
             f"The string {rabbit} failed the {encoding_check.__name__}",
             f"\n{error}"

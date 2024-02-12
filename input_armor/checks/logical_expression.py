@@ -6,5 +6,5 @@ def logical_expression_check(rabbit: str) -> None:
     rabbit = rabbit.lower()
     pattern = r'(\b\w+[><!=]=?[><!=]?\w+\b)|(\b\w+(?:is|==|===)\w+\b)'
     if re.search(pattern, rabbit):
-        raise AssertionError("Logical expression found in a single word")
+        raise AssertionError(f"Logical expression found in a {rabbit} word")
     return None
