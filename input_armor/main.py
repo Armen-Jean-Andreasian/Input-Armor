@@ -87,7 +87,7 @@ class InputArmor:
 
     @staticmethod
     def html_injection_check(rabbit: LiteralString,
-                             check_level: int = 1,
+                             check_level: int,
                              white_list: Iterable = None,
                              black_list: Iterable = None):
         """

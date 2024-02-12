@@ -1,13 +1,22 @@
-# Input Armor
-
-## About 
+# Input Armor Python package
 
 ---
+## About:  
 
-### InputArmor is designed to help you protect your Python applications from malicious input. 
+InputArmor is designed to help you protect your Python applications from malicious input.
 
-#### It provides protection from SQL-injections, DOM-manipulation (HTML injections), CMD injections, and almost all types of injections, and potential security vulnerabilities, raising `AssertionError` when invalid input is detected.
+It provides protection against  security vulnerabilities, `SQL-injections`, `DOM-manipulation (HTML injections)`, and almost all types of injections due to its broad checkup data.
 
+The package operates in a specific way. It doesn't return `True` or `False`.
+- If the test passes: `None` will be returned.
+- If the test fails:  `AssertionError` will be raised with a reason in the error body.
+
+
+The package tests only the data of `str` type.
+And yes, the user input that gotta be tested is called `rabbit`. 😉
+
+---
+## Functionality:
 
 ### InputArmor provides three checkup methods:
 
@@ -36,22 +45,15 @@ Both **Sql Injection** and **HTML Injection** checks:
   - white_list: An iterable with custom values that are allowed to have.
   - black_list: An iterable with custom values that are not allowed to have.
 
-The package operates in a specific way. It doesn't return `True` or `False`.
-- If the test passes: `None` will be returned.
-- If the test fails:  `AssertionError` will be raised with a reason in the error body.
 
-The package tests only the input in `str` type. 
-Also, the user input that gotta be tested is called `rabbit`.
-
----
 
 ---
 # The options provided by Advanced check:
 
 
-> ## Check for non-utf-8 encoding
+> ### Check for non-utf-8 encoding
 
-#### Raises AssertionError if the encoding is not utf-8.
+#### _Raises AssertionError if the encoding is not utf-8._
 
 ```python
 from input_armor import InputArmor
@@ -72,10 +74,9 @@ else:
 
 ---
 
-> ## Check for unsatisfying input length
+> ### Check for unsatisfying input length
 
-#### Check if the input has the given length or doesn't exceed it
-#### Raises an AssertionError either if the input has no length or consists of whitespaces only.
+#### _Check if the input has the given length or doesn't exceed it, or consists of whitespaces only._
 
 ```python
 from input_armor import InputArmor
@@ -97,9 +98,9 @@ else:
 Similarly to this example, you can check for long input as well. 
 
 ---
-> ## Check for threats in a single word input
+> ### Check for threats in a single word input
 
-#### Specially designed to detect one-word threats. Works only with a single word with no spaces.
+#### _Specially designed checkup to detect threats injected into one word. Subsequently, works only with single word inputs._
 
 ```python
 from input_armor import InputArmor
@@ -122,9 +123,9 @@ These are basic checks that should be done on any type of user input.
 
 ---
 
-> ## Check for most common keywords 
+> ### Check for most common keywords 
 
-####  Elementary check for most frequently used keywords in the user input.
+####  _Elementary check for most frequently used keywords in the user input._
 
 The keywords are `while`, `as`, `if`, `else`, `import`, `select`, `do`
 
@@ -145,14 +146,11 @@ else:
     # success logic
     print(True)
 ```
-Similarly to wrong encoding check, no need to additional arguments to `.advanced_check()` method.
-These are basic checks that should be done on any type of user input.
-
 ---
 
-> ## Check for punctuation symbols
+> ### Check for punctuation symbols
 
-#### This check raises an AssertionError if **_any_** kind of non-alpha (non-letter) and non-numeric (non-number) symbol found in the input.
+#### _This check raises an AssertionError if **_any_** kind of non-alpha (non-letter) and non-numeric (non-number) symbol found in the input._
 
 ```python
 from input_armor import InputArmor
@@ -173,13 +171,13 @@ else:
 ```
 ---
 
-> ## Check for undefined value as user input
+> ### Check for undefined value
 
-#### Useful in situations when you have a pool of pre-defined values. 
+#### _Useful in situations when you have a pool of pre-defined values and the input should be in it._
 
-If the user input is not found in your pool of `possible_values`, the check raises `AssertionError`.
+#### _If the user input is not found in your pool of `possible_values`, the check raises `AssertionError`._
 
-`possible_values` should be any `Iterable` type.
+#### `possible_values` should be any `Iterable` type.
 
 ```python
 from input_armor import InputArmor
@@ -201,9 +199,9 @@ else:
 
 ---
 
-# Usage of Sql Injection check
+# Usage of Sql Injection check:
 
-> ## Sql Injection check. Soft mode
+> ### Sql Injection check: Soft mode
 
 ```python
 from input_armor import InputArmor
@@ -224,7 +222,7 @@ else:
 
 **Important note**: Check the lists of each mode, to adjust the security maximally. However, if you have your list of keywords, feel free to use them by providing them as `white_list` or `black_list`.
 
-> ## Sql Injection check. Deep mode
+> ### Sql Injection check: Deep mode
 
 ```python
 from input_armor import InputArmor
@@ -245,11 +243,11 @@ else:
 
 ---
 
-# Usage of HTML Injection (DOM-Manipulation) check
+# Usage of HTML Injection check:
 
 Similarly to Sql Injection check
 
-> ## HTML Injection check. Soft mode
+> ### HTML Injection check. Soft mode
 > 
 ```python
 from input_armor import InputArmor
@@ -270,7 +268,7 @@ else:
 
 **Important note**: Check the lists of each mode, to adjust the security maximally. However, if you have your list of keywords, feel free to use them by providing them as `white_list` or `black_list`.
 
-> ## HTML Injection check. Deep mode
+> ### HTML Injection check. Deep mode
 
 ```python
 from input_armor import InputArmor

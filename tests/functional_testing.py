@@ -47,8 +47,8 @@ class TestInputArmor(unittest.TestCase):
         # keywords check
 
         with self.assertRaises(AssertionError):
-            InputArmor.advanced_check(rabbit="while True")
-            InputArmor.advanced_check(rabbit="or true")
+            InputArmor.advanced_check(rabbit="while True", check_for_keywords=True)
+            InputArmor.advanced_check(rabbit="or true", check_for_keywords=True)
 
     def test_advanced_check_punctuation_symbols(self):
         # punctuation symbols check
@@ -91,7 +91,6 @@ class TestInputArmor(unittest.TestCase):
             self.assertIsNone(InputArmor.sql_injection_check("update string", check_level=2))
 
     def test_html_injection_soft_check(self):
-
         with self.assertRaises(AssertionError):
             InputArmor.html_injection_check(rabbit="getElementById", check_level=1)
             InputArmor.html_injection_check(rabbit="innerHTML", check_level=1)
@@ -100,6 +99,7 @@ class TestInputArmor(unittest.TestCase):
 
         with self.assertRaises(AssertionError):
             self.assertIsNone(InputArmor.html_injection_check("localStorage", check_level=2))
+            self.assertIsNone(InputArmor.html_injection_check("static", check_level=2))
 
 
 if __name__ == '__main__':

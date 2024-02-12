@@ -46,10 +46,13 @@ def anti_injection_check(rabbit: LiteralString,
         if black_list is None:
             black_list = tuple()
 
-    rabbit = rabbit.lower().strip().split()
+    rabbit = rabbit.strip().split()
 
     for item in rabbit:
-        if item in list_of_forbidden_items and item not in white_list or item in black_list:
+        if item in black_list:
             raise AssertionError(f"{item} found in {rabbit}")
 
+        if item in list_of_forbidden_items:
+            if item not in white_list:
+                raise AssertionError(f"{item} found in {rabbit}")
     return None
